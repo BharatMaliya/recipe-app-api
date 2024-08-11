@@ -32,3 +32,48 @@ jobs:
 
       - name: Lint
         run: docker-compose run --rm app sh -c "flake8"
+
+
+
+#
+#name: Build and Release Application
+#
+#on:
+#  push:
+#    tags:
+#      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+#
+#jobs:
+#
+#  release:
+#    runs-on: windows-latest
+#    timeout-minutes: 20
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Configure Git
+#        run: git config --global url."https://github-actions:${{ secrets.ACCESS_TOKEN }}@github.com/"
+#
+#      - name: Create Executable
+#        id: create_executable
+#        uses: sayyid5416/pyinstaller@v1
+#        with:
+#          python_ver: '3.11'
+#          python_arch: 'x64'
+#          spec: 'pyinstaller.spec'
+#          requirements: 'requirements.txt'
+#          upload_exe_with_name: 'Talos-Radar'
+#          options: --onefile, --name "Talos-Radar"
+#
+#      - name: Create Release
+#        id: create_release
+#        uses: softprops/action-gh-release@v2
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          name: Talos-Radar ${{ github.ref }}
+#          tag_name: ${{ github.ref }}
+#          make_latest: true
+#          generate_release_notes: true
+#          files: ${{ steps.create_executable.outputs.executable_path }}
