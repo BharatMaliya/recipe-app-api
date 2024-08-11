@@ -35,7 +35,6 @@ class PublicIngredientsApiTests(TestCase):
     Test the public ingredients API.
     """
 
-
     def setUp(self):
         """
         Setup the test.
